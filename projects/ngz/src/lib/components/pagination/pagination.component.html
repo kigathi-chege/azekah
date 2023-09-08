@@ -1,0 +1,68 @@
+<div class="text-right">
+    <hr *ngIf="divider" />
+    <div
+      class="text-primary"
+      [ngClass]="{
+        'mt-4': !divider,
+        'mt-2': divider
+      }"
+    >
+      <span *ngIf="pages && pages.length > 0" class="badge"
+        ><i
+          class="ri-arrow-left-s-line text-green cursor-pointer"
+          [ngClass]="pages[0] !== currentPage ? 'hover-translate-y' : ''"
+          (click)="changePage(pages[0])"
+          id="dismiss"
+        ></i
+      ></span>
+      <span *ngFor="let i of pages" (click)="changePage(i)">
+        <i
+          class="badge badge-light px-3 mx-1 py-2 rounded cursor-pointer"
+          [ngClass]="
+            i === currentPage
+              ? 'bg-secondary bg-gradient'
+              : 'bg-light hover-bg-secondary hover-translate-y'
+          "
+          *ngIf="
+            isFirstPage &&
+            (i === currentPage ||
+              i === currentPage + 1 ||
+              i === currentPage + 2 ||
+              i === pages.length - 1)
+          "
+        >
+          {{ i + 1 }}
+        </i>
+  
+        <i
+          class="badge badge-light px-3 mx-1 py-2 rounded cursor-pointer"
+          [ngClass]="
+            i === currentPage
+              ? 'bg-secondary bg-gradient'
+              : 'bg-light hover-bg-secondary hover-translate-y'
+          "
+          *ngIf="
+            !isFirstPage &&
+            (i === 0 ||
+              i === currentPage - 1 ||
+              i === currentPage ||
+              i === currentPage + 1 ||
+              i === pages.length - 1)
+          "
+        >
+          {{ i + 1 }}
+        </i>
+      </span>
+      <span *ngIf="pages && pages.length > 0" class="badge"
+        ><i
+          class="ri-arrow-right-s-line text-green cursor-pointer"
+          [ngClass]="
+            pages[pages.length - 0] !== currentPage ? 'hover-translate-y' : ''
+          "
+          (click)="changePage(pages[pages.length - 0])"
+          id="dismiss2"
+        ></i
+      ></span>
+    </div>
+  </div>
+  

@@ -1,0 +1,37 @@
+<label class="lato-regular-11" *ngIf="input.label">{{ input.label }}</label>
+
+<div class="search-select-container">
+  <label
+    class="form-select"
+    [ngClass]="[input.formSelectSmall ? input.formSelectSmall : '']"
+    (click)="toggleFilterMenu()"
+  >
+    <div class="label-text">
+      {{ input.displayText || input.label || "Select" }}
+    </div>
+  </label>
+
+  <div class="search-select-menu" *ngIf="showFilterMenu && !input.isDisabled">
+    <form [formGroup]="searchSelectForm">
+      <input
+        type="text"
+        class="form-control form-control-sm sticky-top m-1 search-input"
+        placeholder="Search"
+        formControlName="keyword"
+      />
+    </form>
+    <ul *ngIf="input.options && input.options.length > 0">
+      <li
+        *ngFor="let option of input.options"
+        class="result-item"
+        (click)="selectOption(option)"
+      >
+        {{ extractFromPath(input.displayPath, option) }}
+      </li>
+
+      <!-- <div>
+                        {loading ? "Loading..." : "No matching records"}
+                    </div> -->
+    </ul>
+  </div>
+</div>

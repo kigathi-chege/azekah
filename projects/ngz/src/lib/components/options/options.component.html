@@ -1,0 +1,170 @@
+<div class="row" [ngClass]="[options.optionsClass || 'my-3']">
+    <div
+      [class]="rowOptions"
+      *ngIf="
+        ((options.title || options.subtitle) &&
+          (options.title?.position === 'start' ||
+            options.subtitle?.position === 'start' ||
+            (!options.subtitle?.position && !options.title?.position))) ||
+        options.startOptions
+      "
+    >
+      <div
+        class="d-flex align-items-center flex-wrap justify-content-start cursor-pointer"
+      >
+        <ng-container *ngIf="options.startOptions">
+          <ng-container
+            *ngTemplateOutlet="
+              optionsTemplate;
+              context: { options: options.startOptions }
+            "
+          ></ng-container>
+        </ng-container>
+        <ng-container
+          *ngIf="
+            (options.title || options.subtitle) &&
+            (options.title?.position === 'start' ||
+              options.subtitle?.position === 'start' ||
+              (!options.subtitle?.position && !options.title?.position))
+          "
+        >
+          <ng-container *ngTemplateOutlet="titlesTemplate"></ng-container
+        ></ng-container>
+      </div>
+    </div>
+  
+    <div
+      [class]="rowOptions"
+      *ngIf="
+        ((options.title || options.subtitle) &&
+          (options.title?.position === 'center' ||
+            options.subtitle?.position === 'center')) ||
+        options.centerOptions
+      "
+    >
+      <div
+        class="d-flex flex-wrap justify-content-center align-content-center cursor-pointer"
+      >
+        <ng-container *ngIf="options.centerOptions">
+          <ng-container
+            *ngTemplateOutlet="
+              optionsTemplate;
+              context: { options: options.centerOptions }
+            "
+          ></ng-container>
+        </ng-container>
+        <ng-container
+          *ngIf="
+            (options.title || options.subtitle) &&
+            (options.title?.position === 'center' ||
+              options.subtitle?.position === 'center')
+          "
+        >
+          <ng-container *ngTemplateOutlet="titlesTemplate"></ng-container
+        ></ng-container>
+      </div>
+    </div>
+  
+    <div
+      [class]="rowOptions"
+      *ngIf="
+        ((options.title || options.subtitle) &&
+          (options.title?.position === 'end' ||
+            options.subtitle?.position === 'end')) ||
+        options.navigation ||
+        options.refresh ||
+        options.endOptions
+      "
+    >
+      <div
+        class="d-flex flex-wrap justify-content-end align-items-center cursor-pointer"
+      >
+        <ng-container
+          *ngIf="
+            (options.title || options.subtitle) &&
+            (options.title?.position === 'end' ||
+              options.subtitle?.position === 'end')
+          "
+        >
+          <ng-container *ngTemplateOutlet="titlesTemplate"></ng-container
+        ></ng-container>
+        <ng-container *ngIf="options.navigation">
+          <div
+            class="badge badge-light me-1 mt-1 cursor-pointer option-hover"
+            (click)="util.backClicked()"
+          >
+            <i class="ri-arrow-left-line"></i>
+          </div>
+          <div
+            class="badge badge-light me-1 mt-1 cursor-pointer option-hover"
+            (click)="util.forwardClicked()"
+          >
+            <i class="ri-arrow-right-line"></i>
+          </div>
+        </ng-container>
+        <div
+          *ngIf="options.refresh"
+          class="badge badge-light me-1 mt-1 cursor-pointer option-hover"
+        >
+          <i class="ri-refresh-line"></i>
+        </div>
+        <ng-container *ngIf="options.endOptions">
+          <ng-container
+            *ngTemplateOutlet="
+              optionsTemplate;
+              context: { options: options.endOptions }
+            "
+          ></ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #titlesTemplate>
+    <!--Display block is not working here for some reason-->
+    <div class="d-block">
+      <span
+        [ngClass]="options.title.class_ || 'lato-bold-25'"
+        *ngIf="options.title"
+        >{{ options.title.value }}</span
+      >
+      <span
+        [ngClass]="options.subtitle.class_ || 'lato-bold-20 text-green'"
+        *ngIf="options.subtitle"
+        >{{ options.subtitle.value }}</span
+      >
+    </div>
+  </ng-template>
+  
+  <ng-template #optionsTemplate let-options="options">
+    <div
+      class="cursor-pointer d-flex align-items-center"
+      [ngClass]="option.class || 'badge badge-light option-hover'"
+      *ngFor="let option of options"
+      (click)="option.action && util.goTo(option.action)"
+    >
+      <ng-container *ngIf="option.widget; else defaultOption">
+        <!-- 
+          TODO: Kigathi - 21 Aug 2023
+          Implement widgets for images, text, button, switch 
+        -->
+        <ng-container [ngSwitch]="option.widget">
+          <ng-container *ngSwitchCase="'image'">
+            <img
+              #img
+              [alt]="option.label"
+              [ngClass]="[option.class_ || 'rounded-circle shadow-4-strong']"
+            />
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            <ng-container *ngTemplateOutlet="defaultOption"></ng-container>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <ng-template #defaultOption>
+        <i *ngIf="option.icon" [class]="option.icon"></i>
+        {{ option.label }}
+      </ng-template>
+    </div>
+  </ng-template>
+  

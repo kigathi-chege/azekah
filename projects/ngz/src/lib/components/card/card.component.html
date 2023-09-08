@@ -1,0 +1,483 @@
+<div
+  class="card"
+  [ngClass]="[
+    input.loading ? 'text-center' : '',
+    input.card_whole_class ? input.card_whole_class : ''
+  ]"
+  (click)="onClick()"
+  [style.--shadow-color]="shadowColor"
+  [style.--text-width]="textWidth"
+>
+  <!--
+  Kigathi - 10 Aug 2023
+  In the following section, this class: "d-flex justify-content-between align-items-center"
+  is necessary for the proper behavior of the elements, it is however included as an optional
+  class to ensure that display flex does not interfere with input.header.value when the other 
+  elements are not present. Please make sure to include this class if for some reason you are
+  overriding the classes in card_header_class and you need to properly align the badge.
+-->
+  <div
+    *ngIf="!input.loading && input.header"
+    [ngClass]="[
+      input.card_header_class
+        ? input.card_header_class
+        : 'card-header d-flex justify-content-between align-items-center'
+    ]"
+  >
+    <span class="d-flex align-items-center">
+      <img
+        *ngIf="input.header.image && input.header.image.value"
+        [src]="input.header.image.value"
+        alt="Header Image"
+        class="ms-2 rounded-circle shadow-4-strong"
+        width="25"
+      />
+      <span
+        *ngIf="input.header.value || input.header.alt"
+        [ngClass]="[input.header.class_ ? input.header.class_ : '']"
+      >
+        <ng-container
+          *ngIf="input.header.appends && input.header.appends.type === 'pre'"
+        >
+          <span [ngClass]="input.header.appends.class_ || ''">
+            {{ input.header.appends.value }}
+          </span>
+        </ng-container>
+        <span>{{ input.header.value || input.header.alt }}</span>
+        <ng-container
+          *ngIf="input.header.appends && input.header.appends.type === 'post'"
+        >
+          <span [ngClass]="input.header.appends.class_ || ''">
+            {{ input.header.appends.value }}
+          </span>
+        </ng-container>
+      </span>
+    </span>
+    <span
+      *ngIf="input.header.badge"
+      [ngClass]="[input.header.badge.class_ ? input.header.badge.class_ : '']"
+    >
+      {{ input.header.badge.value }}
+    </span>
+  </div>
+  <div
+    *ngIf="cardHasBody"
+    [ngClass]="{ 'row g-0': input.style === 'horizontal' }"
+  >
+    <div
+      *ngIf="input.top_image && input.top_image.value"
+      [ngClass]="[input.topImageWrapperClass || 'text-center']"
+    >
+      <!-- 
+      14/6/23 - Kigathi
+      Implemented card-columns for variable height cards.
+      Bootstrap warned me of potential unexpected behavior.
+      Tried implementing with official bootstrap masonry:
+      https://getbootstrap.com/docs/5.0/examples/masonry/
+      Worked after a few tries, then failed when I removed the imported angular.json scripts.
+      (I was using two scripts, one embedded via ViewChild, and the other imported via angular.json)
+      Failed after this. I am uncertain whether it is something to do with how Angular imports scripts.
+      Tried the below package, was inelastic and not animated, removed it, but it's worth a second look.
+      https://www.npmjs.com/package/ngx-masonry
+      Using the below class before to force height image:
+      class="img-responsive card-image-size" 
+    -->
+      <img
+        *ngIf="!input.loading && input.top_image.value; else imgLoading"
+        [id]="input.index"
+        [src]="input.top_image.value"
+        class="img-responsive card-image-size"
+        [ngClass]="[
+          input.style === 'vertical'
+            ? 'card-img-top'
+            : 'img-fluid rounded-start',
+          input.top_image.class_ ? input.top_image.class_ : '',
+          input.header && input.style === 'vertical' ? 'rounded-0' : ''
+        ]"
+        alt="..."
+      />
+      <ng-template #imgLoading>
+        <div class="spinner-border text-primary my-4" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </ng-template>
+    </div>
+    <div [ngClass]="[input.bodyWrapperClass || '']">
+      <div
+        [ngClass]="[
+          input.footer ? 'pb-0' : '',
+          input.card_body_class ? input.card_body_class : 'card-body'
+        ]"
+      >
+        <h5
+          *ngIf="!input.loading && input.title"
+          class="text-truncate"
+          [ngClass]="[
+            input.card_title_class ? input.card_title_class : 'card-title'
+          ]"
+        >
+          <span class="d-flex align-items-center justify-content-between">
+            <span>
+              <ng-container *ngIf="input.title.prefix">
+                <ng-container
+                  *ngIf="
+                    input.title.prefix.appends &&
+                    input.title.prefix.appends.type === 'pre'
+                  "
+                >
+                  <span [ngClass]="input.title.prefix.appends.class_ || ''">
+                    {{ input.title.prefix.appends.value }}
+                  </span>
+                </ng-container>
+                <span
+                  [ngClass]="[
+                    input.title.prefix.class_
+                      ? input.title.prefix.class_
+                      : 'lato-regular-12 text-jacarta'
+                  ]"
+                  >{{ input.title.prefix.value }}</span
+                >
+                <ng-container
+                  *ngIf="
+                    input.title.prefix.appends &&
+                    input.title.prefix.appends.type === 'post'
+                  "
+                >
+                  <span [ngClass]="input.title.prefix.appends.class_ || ''">
+                    {{ input.title.prefix.appends.value }}
+                  </span>
+                </ng-container>
+              </ng-container>
+              <ng-container *ngIf="input.title">
+                <ng-container
+                  *ngIf="
+                    input.title.appends && input.title.appends.type === 'pre'
+                  "
+                >
+                  <span [ngClass]="input.title.appends.class_ || ''">
+                    {{ input.title.appends.value }}
+                  </span>
+                </ng-container>
+                <span
+                  [ngClass]="[
+                    input.title.class_
+                      ? input.title.class_
+                      : 'lato-regular-12 text-jacarta'
+                  ]"
+                  >{{
+                    input.title && input.title.pipe && input.title.pipe_args
+                      ? (input.title.value
+                        | dynamicPipe
+                          : input.title.pipe
+                          : input.title.pipe_args)
+                      : input.title.value
+                  }}
+                  </span
+                >
+                <ng-container
+                  *ngIf="
+                    input.title.appends && input.title.appends.type === 'post'
+                  "
+                >
+                  <span [ngClass]="input.title.appends.class_ || ''">
+                    {{ input.title.appends.value }}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </span>
+            <span
+              *ngIf="input.title.badge"
+              [ngClass]="[
+                input.title.badge.class_ ? input.title.badge.class_ : ''
+              ]"
+            >
+              {{ input.title.badge.value }}
+            </span>
+          </span>
+        </h5>
+        <h6
+          *ngIf="!input.loading && input.subtitle"
+          class="text-truncate"
+          [ngClass]="[
+            input.card_subtitle_class
+              ? input.card_subtitle_class
+              : 'card-subtitle mb-2'
+          ]"
+        >
+          <ng-container *ngIf="input.subtitle.prefix">
+            <ng-container
+              *ngIf="
+                input.subtitle.prefix.appends &&
+                input.subtitle.prefix.appends.type === 'pre'
+              "
+            >
+              <span [ngClass]="input.subtitle.prefix.appends.class_ || ''">
+                {{ input.subtitle.prefix.appends.value }}
+              </span>
+            </ng-container>
+            <span
+              [ngClass]="[
+                input.subtitle.prefix.class_
+                  ? input.subtitle.prefix.class_
+                  : 'lato-bold-12 text-jacarta'
+              ]"
+              >{{
+                input.subtitle.prefix.pipe && input.subtitle.prefix.pipe_args
+                  ? (input.subtitle.prefix.value
+                    | dynamicPipe
+                      : input.subtitle.prefix.pipe
+                      : input.subtitle.prefix.pipe_args)
+                  : input.subtitle.prefix.value
+              }}
+              </span
+            >
+            <ng-container
+              *ngIf="
+                input.subtitle.prefix.appends &&
+                input.subtitle.prefix.appends.type === 'post'
+              "
+            >
+              <span [ngClass]="input.subtitle.prefix.appends.class_ || ''">
+                {{ input.subtitle.prefix.appends.value }}
+              </span>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="input.subtitle"
+            ><span
+              [ngClass]="[
+                input.subtitle.class_
+                  ? input.subtitle.class_
+                  : 'lato-bold-12 text-jacarta'
+              ]"
+              >{{
+                input.subtitle &&
+                input.subtitle.pipe &&
+                input.subtitle.pipe_args
+                  ? (input.subtitle.value
+                    | dynamicPipe
+                      : input.subtitle.pipe
+                      : input.subtitle.pipe_args)
+                  : input.subtitle.value
+              }}
+              </span
+            >
+          </ng-container>
+        </h6>
+        <p
+          *ngIf="!input.loading && input.text"
+          [ngClass]="[
+            input.card_text_class ? input.card_text_class : 'card-text'
+          ]"
+        >
+          <ng-container
+            *ngIf="
+              getTypeOf(input.text.value) === 'string' ||
+              getTypeOf(input.text.value) === 'number'
+            "
+          >
+            <ng-container
+              *ngIf="
+                input.text.prefix &&
+                getTypeOf(input.text.prefix.value) === 'string'
+              "
+            >
+              <ng-container
+                *ngTemplateOutlet="
+                  preTextTemplate;
+                  context: {
+                    preText: {
+                      value: input.text.prefix.value,
+                      class_: input.text.prefix.class_
+                    }
+                  }
+                "
+              ></ng-container
+            ></ng-container>
+            <ng-container
+              *ngTemplateOutlet="
+                textTemplate;
+                context: {
+                  text: {
+                    value: input.text.value,
+                    class_: input.text.class_,
+                    appends: input.text.appends?.value,
+                    appends_class: input.text.appends?.class_,
+                    appends_type: input.text.appends?.type,
+                    hasBreakLine: false,
+                    position: undefined
+                  }
+                }
+              "
+            ></ng-container>
+          </ng-container>
+          <ng-container *ngIf="getTypeOf(input.text.value) === 'object'">
+            <ng-container
+              *ngFor="let text of processedText.value; let i = index"
+            >
+              <ng-container
+                *ngIf="
+                  input.text.prefix &&
+                  getTypeOf(input.text.prefix.value) === 'object'
+                "
+              >
+                <ng-container
+                  *ngTemplateOutlet="
+                    preTextTemplate;
+                    context: {
+                      preText: {
+                        value: processedPreText.value[i],
+                        class_:
+                          processedPreText.class_ && processedPreText.class_[i]
+                      }
+                    }
+                  "
+                ></ng-container
+              ></ng-container>
+              <ng-container
+                *ngTemplateOutlet="
+                  textTemplate;
+                  context: {
+                    text: {
+                      value: text,
+                      class_: processedText.class_ && processedText.class_[i],
+                      hasBreakLine: true,
+                      position: i ===  processedText.value.length-1 ? 'end' : i ===  0 ? 'start' : 'distribute'
+                    },
+                  }
+                "
+              ></ng-container>
+            </ng-container>
+          </ng-container>
+        </p>
+        <div
+          *ngIf="input.loading"
+          class="spinner-border text-primary"
+          role="status"
+        >
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="input.footer">
+    <lib-footer
+      [input]="this.input.footer"
+      (output)="onFooterAction($event)"
+    ></lib-footer>
+  </ng-container>
+</div>
+
+<ng-template #preTextTemplate let-preText="preText">
+  <span [ngClass]="[preText.class_ || 'lato-bold-12 text-jacarta']">{{
+    preText.value
+  }}</span>
+</ng-template>
+
+<ng-template #textTemplate let-text="text">
+  <span #appTextDiv>
+    <span
+      #appTextSpan
+      [ngClass]="[text.class_ ? text.class_ : 'lato-bold-12 text-jacarta']"
+    >
+      <ng-container *ngIf="text.appends && text.appends_type === 'pre'">
+        <span [ngClass]="text.appends_class || ''">
+          {{ text.appends }}
+        </span> </ng-container
+      ><span #appInnerTextSpan>{{ text.value }}</span>
+      <ng-container *ngIf="text.appends && text.appends_type === 'post'">
+        <span [ngClass]="text.appends_class || ''">
+          {{ text.appends }}
+        </span>
+      </ng-container>
+      <ng-container *ngIf="!input.loading && input.sub_text">
+        <ng-container
+          *ngIf="
+            input.sub_text.position && text.position === input.sub_text.position
+          "
+        >
+          <ng-container *ngTemplateOutlet="mainSubTextTemplate"></ng-container>
+        </ng-container> </ng-container
+    ></span>
+  </span>
+  <br *ngIf="text.hasBreakLine" />
+</ng-template>
+
+<ng-template #mainSubTextTemplate>
+  <p
+    *ngIf="input.sub_text"
+    [ngClass]="[
+      input.card_sub_text_class ? input.card_sub_text_class : 'card-text'
+    ]"
+  >
+    <ng-container
+      *ngIf="
+        getTypeOf(input.sub_text.value) === 'string' ||
+        getTypeOf(input.sub_text.value) === 'number'
+      "
+    >
+      <ng-container
+        *ngIf="
+          input.sub_text.prefix &&
+          getTypeOf(input.sub_text.prefix.value) === 'string'
+        "
+      >
+        <ng-container
+          *ngTemplateOutlet="
+            preSubTextTemplate;
+            context: { preSubText: input.sub_text.prefix.value }
+          "
+        ></ng-container
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="
+          subTextTemplate;
+          context: { subText: input.sub_text.value }
+        "
+      ></ng-container>
+    </ng-container>
+    <ng-container *ngIf="getTypeOf(input.sub_text.value) === 'object'">
+      <ng-container
+        *ngFor="let subText of processedSubText.value; let i = index"
+      >
+        <ng-container
+          *ngIf="
+            input.sub_text.prefix &&
+            getTypeOf(input.sub_text.prefix.value) === 'object'
+          "
+        >
+          <ng-container
+            *ngTemplateOutlet="
+              preSubTextTemplate;
+              context: { preSubText: processedPreSubText.value[i] }
+            "
+          ></ng-container
+        ></ng-container>
+        <ng-container
+          *ngTemplateOutlet="subTextTemplate; context: { subText }"
+        ></ng-container>
+      </ng-container>
+    </ng-container>
+  </p>
+</ng-template>
+
+<ng-template #preSubTextTemplate let-preSubText="preSubText">
+  <span
+    [ngClass]="[
+      input.sub_text?.prefix?.class_
+        ? input.sub_text?.prefix?.class_
+        : 'lato-bold-12 text-jacarta'
+    ]"
+    >{{ preSubText }}</span
+  >
+</ng-template>
+
+<ng-template #subTextTemplate let-subText="subText">
+  <span
+    [ngClass]="[
+      input.sub_text?.class_
+        ? input.sub_text?.class_
+        : 'lato-bold-12 text-jacarta'
+    ]"
+    >{{ subText }}</span
+  ><br />
+</ng-template>

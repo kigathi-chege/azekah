@@ -1,0 +1,6 @@
+<div
+  *ngIf="input && !input.loading && input.cardFooterActions.length > 0"
+  [ngClass]="[input.border ? 'border-top' : '', input.class_ || 'mt-2 px-2']"
+>
+  <ngz-options [options]="footerOptions"></ngz-options>
+</div>

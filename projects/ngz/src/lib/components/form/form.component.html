@@ -1,0 +1,167 @@
+<ngz-options *ngIf="hasOptions" [options]="options"></ngz-options>
+
+<div [ngClass]="[form.form_wrapper_class || '']">
+  <h3 class="mt-3 lato-bold-16 text-green" *ngIf="form.form_header">
+    {{ form.form_header }}
+  </h3>
+  <form [formGroup]="form_group" (submit)="onSubmit()">
+    <div class="row" [ngClass]="[form.form_class ? form.form_class : 'mb-4']">
+      <ng-container *ngFor="let form_control of form.form_inputs">
+        <div
+          class="form-group mb-0"
+          [ngClass]="[form_control.input_wrapper_class || '']"
+        >
+          <ngz-label
+            *ngIf="form_control.label && !form_control.label.labelAfter"
+            [label]="form_control.label"
+          ></ngz-label>
+
+          <ng-container [ngSwitch]="form_control.type">
+            <ng-container *ngSwitchCase="'select'">
+              <select
+                class="select form-control form-control-sm"
+                [formControlName]="form_control.name"
+                [id]="form_control.id"
+                [name]="form_control.name"
+                [required]="
+                  form_control.required ? form_control.required : false
+                "
+              >
+                <option
+                  *ngFor="let option of form_control.select_options"
+                  [ngValue]="option.value"
+                >
+                  {{ option.label }}
+                </option>
+              </select>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'search-select'">
+              <ng-container
+                *ngTemplateOutlet="
+                  dynamicTemplate;
+                  context: { form_control: form_control }
+                "
+              ></ng-container>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'textarea'">
+              <textarea
+                [id]="form_control.id"
+                [name]="form_control.name"
+                [formControlName]="form_control.name"
+                [required]="
+                  form_control.required ? form_control.required : false
+                "
+                class="form-control form-control-sm"
+                [ngClass]="[
+                  form_control.input_class ? form_control.input_class : ''
+                ]"
+                [placeholder]="form_control.place_holder"
+                cols="30"
+                [rows]="form_control.textarea_rows || 5"
+              ></textarea>
+            </ng-container>
+
+            <ng-container *ngSwitchDefault>
+              <input
+                [type]="form_control.type"
+                [ngClass]="[
+                  form_control.type !== 'checkbox'
+                    ? 'form-control form-control-sm'
+                    : '',
+                  form_control.input_class ? form_control.input_class : ''
+                ]"
+                [id]="form_control.id"
+                [name]="form_control.name"
+                [placeholder]="form_control.place_holder"
+                [formControlName]="form_control.name"
+                [value]="form_control.default"
+                [required]="
+                  form_control.required ? form_control.required : false
+                "
+                (input)="
+                  form_control &&
+                  form_control.options &&
+                  form_control.options.input
+                    ? inputFunc(form_control.options.input, $event)
+                    : ''
+                "
+                (keypress)="
+                  form_control &&
+                  form_control.options &&
+                  form_control.options.keypress
+                    ? inputFunc(form_control.options.keypress, $event)
+                    : ''
+                "
+                (paste)="
+                  form_control &&
+                  form_control.options &&
+                  form_control.options.paste
+                    ? inputFunc(form_control.options.paste, $event)
+                    : ''
+                "
+              />
+            </ng-container>
+          </ng-container>
+
+          <ngz-label
+            *ngIf="form_control.label && form_control.label?.labelAfter"
+            [label]="form_control.label"
+          ></ngz-label>
+
+          <small
+            *ngIf="
+              form_control && form_control.options && form_control.options.help
+            "
+            [id]="form_control.id + 'Help'"
+            class="form-text lato-bold-11 text-slate-gray text-left"
+          >
+            <span>{{
+              helpFunc(form_control.options.help)
+                ? helpFunc(form_control.options.help)
+                : ""
+            }}</span>
+          </small>
+          <small
+            *ngIf="
+              form_control && form_control.options && form_control.options.error
+            "
+            [id]="form_control.id + 'Help'"
+            class="form-text lato-bold-11 text-dingy text-left"
+          >
+            <span>{{ form_control.options.error }}</span>
+          </small>
+        </div>
+      </ng-container>
+    </div>
+
+    <button
+      type="submit"
+      *ngIf="!form.no_submit_button"
+      [disabled]="!form_group.valid"
+      [ngClass]="[
+        form.submit_button_class
+          ? form.submit_button_class
+          : 'btn btn-success btn-block mt-3'
+      ]"
+    >
+      <span
+        [ngClass]="[
+          form.submit_button_label_class
+            ? form.submit_button_label_class
+            : 'open-sans-semi-bold-12'
+        ]"
+      >
+        {{ form.submit_button_label?.toUpperCase() || "SUBMIT" }}
+      </span>
+    </button>
+  </form>
+</div>
+
+<ng-template #dynamicTemplate let-form_control="form_control">
+  <lib-dynamic-search-select
+    [formInput]="form_control"
+    (onOptionSelect)="onSearchSelectOptionSelected($event)"
+  ></lib-dynamic-search-select>
+</ng-template>

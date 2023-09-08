@@ -1,0 +1,21 @@
+<div class="d-flex justify-content-end mt-3 ms-4" *ngIf="menuItems.length > 0">
+    <span
+      *ngFor="let crumb of menuItems; let i = index"
+      (click)="goTo(crumb.url, i)"
+      class="d-flex justify-content-center align-items-center cursor-pointer"
+    >
+      <span
+        class="lato-regular-14"
+        [ngClass]="{
+          'text-sonic': i + 1 != menuItems.length,
+          'text-indigo': i + 1 == menuItems.length
+        }"
+        >{{ crumb.label }}</span
+      >
+      <i
+        *ngIf="i + 1 != menuItems.length"
+        class="ri-arrow-right-s-line ri-1x"
+      ></i>
+    </span>
+  </div>
+  
