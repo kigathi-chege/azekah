@@ -1,4 +1,4 @@
-import { PaginationService } from "../providers/pagination.service";
+import { PaginationService } from '../providers/pagination.service';
 
 export interface JSONValue {
   [key: string]: string | number | boolean | JSONValueObject | JSONValueArray;
@@ -22,7 +22,17 @@ export interface ArrayOfObjects extends Array<Obj | Record<string, Obj>> {}
 
 export type ID = number | string;
 
-export type ToasterPositions = 'top-end';
+export type ToasterPositions =
+  | 'top-end'
+  | 'top'
+  | 'top-start'
+  | 'top-end'
+  | 'center'
+  | 'center-start'
+  | 'center-end'
+  | 'bottom'
+  | 'bottom-start'
+  | 'bottom-end';
 
 export interface ToasterCustomClasses {
   confirmButton?: string;
@@ -49,6 +59,8 @@ export interface ToasterOptions {
   confirmButtonText?: string;
   cancelButtonText?: string;
   reverseButtons?: boolean;
+  color?: string;
+  background?: string;
 }
 
 export interface ToasterResult {
@@ -378,7 +390,8 @@ export type FormInputType =
   | 'select'
   | 'email'
   | 'password'
-  | 'search-select';
+  | 'search-select'
+  | 'editor';
 
 export type ClearErrorHelpInputsFormat = string[] | '*';
 
@@ -464,7 +477,8 @@ export interface SearchSelectComponentRefArgs {
   selected_option?: any;
 }
 
-export type CompoundSearchSelectComponentRefArgs = SearchSelectComponentRefArgs[];
+export type CompoundSearchSelectComponentRefArgs =
+  SearchSelectComponentRefArgs[];
 
 export interface SearchSelectKeywordContext {
   keyword: string;

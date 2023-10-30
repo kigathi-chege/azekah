@@ -60,8 +60,33 @@
                 [placeholder]="form_control.place_holder"
                 cols="30"
                 [rows]="form_control.textarea_rows || 5"
-                >{{ form_control.default }}</textarea
-              >
+                [value]="form_control.default"
+              ></textarea>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'editor'">
+              <editor
+                [id]="form_control.id"
+                [formControlName]="form_control.name"
+                [required]="
+                  form_control.required ? form_control.required : false
+                "
+                class="form-control form-control-sm"
+                [ngClass]="[
+                  form_control.input_class ? form_control.input_class : ''
+                ]"
+                cols="30"
+                [initialValue]="form_control.default"
+                [init]="{
+									plugins: 'searchreplace autolink directionality visualblocks visualchars image link media codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap emoticons autosave',
+									toolbar: 'undo redo print spellcheckdialog formatpainter | blocks fontfamily fontsize | bold italic underline forecolor backcolor | link image | alignleft aligncenter alignright alignjustify lineheight | checklist bullist numlist indent outdent | removeformat',
+									height: '600px',
+									skin: 'oxide-dark',
+									content_css: 'dark',
+									suffix: '.min',
+									base_url: '/tinymce',
+								}"
+              ></editor>
             </ng-container>
 
             <ng-container *ngSwitchDefault>

@@ -14,6 +14,7 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
 import { ButtonSelectComponent } from './components/button-select/button-select.component';
 import { ListCardComponent } from './components/list-card/list-card.component';
 import { NgxMasonryModule } from 'ngx-masonry';
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,13 @@ import { NgxMasonryModule } from 'ngx-masonry';
     ButtonSelectComponent,
     ListCardComponent,
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgxMasonryModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxMasonryModule,
+    EditorModule,
+  ],
   exports: [
     CardComponent,
     OptionsComponent,
@@ -41,6 +48,9 @@ import { NgxMasonryModule } from 'ngx-masonry';
     BreadcrumbComponent,
     ButtonSelectComponent,
     ListCardComponent,
+  ],
+  providers: [
+    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
   ],
 })
 export class NgzModule {}

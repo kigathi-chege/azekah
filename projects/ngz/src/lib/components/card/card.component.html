@@ -172,8 +172,7 @@
                           : input.title.pipe_args)
                       : input.title.value
                   }}
-                  </span
-                >
+                </span>
                 <ng-container
                   *ngIf="
                     input.title.appends && input.title.appends.type === 'post'
@@ -229,8 +228,7 @@
                       : input.subtitle.prefix.pipe_args)
                   : input.subtitle.prefix.value
               }}
-              </span
-            >
+            </span>
             <ng-container
               *ngIf="
                 input.subtitle.prefix.appends &&
@@ -259,8 +257,7 @@
                       : input.subtitle.pipe_args)
                   : input.subtitle.value
               }}
-              </span
-            >
+            </span>
           </ng-container>
         </h6>
         <p
@@ -303,6 +300,8 @@
                     appends: input.text.appends?.value,
                     appends_class: input.text.appends?.class_,
                     appends_type: input.text.appends?.type,
+                    pipe: input.text.pipe,
+                    pipe_args: input.text.pipe_args,
                     hasBreakLine: false,
                     position: undefined
                   }
@@ -383,7 +382,13 @@
         <span [ngClass]="text.appends_class || ''">
           {{ text.appends }}
         </span> </ng-container
-      ><span #appInnerTextSpan>{{ text.value }}</span>
+      ><span #appInnerTextSpan>{{
+        text.pipe && text.pipe_args
+          ? (text.value | dynamicPipe : text.pipe : text.pipe_args)
+          : text.pipe && !text.pipe_args
+          ? (text.value | dynamicPipe : text.pipe)
+          : text.value
+      }}</span>
       <ng-container *ngIf="text.appends && text.appends_type === 'post'">
         <span [ngClass]="text.appends_class || ''">
           {{ text.appends }}
