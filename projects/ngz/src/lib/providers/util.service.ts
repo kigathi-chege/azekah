@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
-import { NavigationExtras, Router } from '@angular/router';
-import { Subject, lastValueFrom } from 'rxjs';
+import { Router } from '@angular/router';
 import { StorageService } from './storage.service';
 import { PageOptionAction } from '../core/types';
 
