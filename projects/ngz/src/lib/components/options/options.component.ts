@@ -56,16 +56,12 @@ export class OptionsComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked(): void {
-    console.log('object', this.options);
-
     // if (this.options.startOptions && this.options.startOptions.length > 0) {
     // 	this.addOptionAttributes(this.options.startOptions);
     // }
-
     // if (this.options.centerOptions && this.options.centerOptions.length > 0) {
     //   this.addOptionAttributes(this.options.centerOptions);
     // }
-
     // if (this.options.endOptions && this.options.endOptions.length > 0) {
     // 	this.addOptionAttributes(this.options.endOptions);
     // }

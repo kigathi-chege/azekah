@@ -104,6 +104,101 @@
       </div>
     </div>
   </div>
+  <div *ngIf="!options.title">
+    <div
+      *ngIf="
+        ((options.endOptions && options.startOptions) ||
+          (options.endOptions && !options.startOptions) ||
+          (!options.endOptions && options.startOptions)) &&
+        !options.centerOptions
+      "
+    >
+      <div
+        class="d-flex align-items-center flex-wrap justify-content-between cursor-pointer"
+      >
+        <div>
+          <ng-container
+            *ngTemplateOutlet="
+              optionsTemplate;
+              context: {
+                options: options.startOptions || []
+              }
+            "
+          ></ng-container>
+        </div>
+        <div>
+          <ng-container
+            *ngTemplateOutlet="
+              optionsTemplate;
+              context: {
+                options: options.endOptions || []
+              }
+            "
+          ></ng-container>
+        </div>
+      </div>
+    </div>
+    <div
+      *ngIf="
+        options.endOptions && options.startOptions && options.centerOptions
+      "
+    >
+      <div
+        class="d-flex align-items-center flex-wrap justify-content-around cursor-pointer"
+      >
+        <div>
+          <ng-container
+            *ngTemplateOutlet="
+              optionsTemplate;
+              context: {
+                options: options.startOptions
+              }
+            "
+          ></ng-container>
+        </div>
+        <div>
+          <ng-container
+            *ngTemplateOutlet="
+              optionsTemplate;
+              context: {
+                options: options.centerOptions
+              }
+            "
+          ></ng-container>
+        </div>
+        <div>
+          <ng-container
+            *ngTemplateOutlet="
+              optionsTemplate;
+              context: {
+                options: options.endOptions
+              }
+            "
+          ></ng-container>
+        </div>
+      </div>
+    </div>
+    <div
+      *ngIf="
+        !options.endOptions && !options.startOptions && options.centerOptions
+      "
+    >
+      <div
+        class="d-flex align-items-center flex-wrap justify-content-center cursor-pointer"
+      >
+        <div>
+          <ng-container
+            *ngTemplateOutlet="
+              optionsTemplate;
+              context: {
+                options: options.centerOptions
+              }
+            "
+          ></ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <ng-template #titlesTemplate>
