@@ -13,6 +13,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { ButtonSelectComponent } from './components/button-select/button-select.component';
 import { ListCardComponent } from './components/list-card/list-card.component';
+import { NgxMasonryModule } from 'ngx-masonry';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { ListCardComponent } from './components/list-card/list-card.component';
     ButtonSelectComponent,
     ListCardComponent,
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgxMasonryModule],
   exports: [
     CardComponent,
     OptionsComponent,
