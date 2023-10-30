@@ -27,13 +27,9 @@ import { ListCardComponent } from './components/list-card/list-card.component';
     PaginationComponent,
     BreadcrumbComponent,
     ButtonSelectComponent,
-    ListCardComponent
+    ListCardComponent,
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-  ],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   exports: [
     CardComponent,
     OptionsComponent,
@@ -43,7 +39,7 @@ import { ListCardComponent } from './components/list-card/list-card.component';
     PaginationComponent,
     BreadcrumbComponent,
     ButtonSelectComponent,
-    ListCardComponent
-  ]
+    ListCardComponent,
+  ],
 })
-export class NgzModule { }
+export class NgzModule {}
