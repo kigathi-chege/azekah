@@ -60,7 +60,8 @@
                 [placeholder]="form_control.place_holder"
                 cols="30"
                 [rows]="form_control.textarea_rows || 5"
-              ></textarea>
+                >{{ form_control.default }}</textarea
+              >
             </ng-container>
 
             <ng-container *ngSwitchDefault>
