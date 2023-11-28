@@ -1,4 +1,5 @@
-<ngx-masonry class="row display-flex" data-masonry='{"percentPosition": true }'>
+<!-- <ngx-masonry class="row display-flex" data-masonry='{"percentPosition": true }'> -->
+<div class="row display-flex">
   <div
     ngxMasonryItem
     *ngFor="let item of cardData"
@@ -18,4 +19,5 @@
     [pagination_data]="pagination_data"
     (newChangePageEvent)="changePage($event)"
   ></ngz-pagination>
-</ngx-masonry>
+</div>
+<!-- </ngx-masonry> -->

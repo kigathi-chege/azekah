@@ -1,4 +1,8 @@
-# Ngz
+# Azekah
+
+Azekah means strong walls.
+
+Azekah is an angular component builder. It is currently based on Bootstrap but there are plans to also extend its custom styling to include TailWind as well.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
 
