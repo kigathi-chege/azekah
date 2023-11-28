@@ -41,8 +41,6 @@ export interface ToasterCustomClasses {
 
 export type ToasterType = 'error' | 'success' | 'warning' | 'info' | 'question';
 
-export type UrlType = 'mradi' | 'constable';
-
 export type AnonymousFn = (...args: any) => any;
 
 export type HeaderType = 'minimal' | 'default' | 'store-front';
