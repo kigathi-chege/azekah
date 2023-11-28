@@ -1,6 +1,10 @@
 {
   "name": "azekah",
   "version": "0.1.0",
+  "main": "lib/index.js",
+  "module": "esm2022/index.js",
+  "typings": "index.d.ts",
+  "types": "public-api.d.ts",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
