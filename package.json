@@ -1,6 +1,6 @@
 {
   "name": "azekah",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "lib/index.js",
   "module": "esm2022/index.js",
   "typings": "index.d.ts",
