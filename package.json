@@ -1,10 +1,21 @@
 {
   "name": "azekah",
-  "version": "0.1.1",
-  "main": "lib/index.js",
-  "module": "esm2022/index.js",
-  "typings": "index.d.ts",
-  "types": "public-api.d.ts",
+  "version": "0.1.2",
+  "author": {
+    "name": "Kigathi"
+  },
+  "keywords": [
+    "angular",
+    "components",
+    "bootstrap",
+    "azekah",
+    "ngz"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kigathi-chege/azekah.git"
+  },
+  "description": "Card based bootstrap components for angular, with utilities.",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -24,7 +35,6 @@
     "@angular/router": "^16.2.0",
     "@ngx-pwa/local-storage": "^16.3.0",
     "@tinymce/tinymce-angular": "^7.0.0",
-    "ngx-masonry": "^14.0.1",
     "rxjs": "~7.8.0",
     "tinymce": "^6.7.2",
     "tslib": "^2.3.0",

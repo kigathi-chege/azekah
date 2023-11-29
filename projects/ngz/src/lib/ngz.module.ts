@@ -13,7 +13,6 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { ButtonSelectComponent } from './components/button-select/button-select.component';
 import { ListCardComponent } from './components/list-card/list-card.component';
-import { NgxMasonryModule } from 'ngx-masonry';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 
 @NgModule({
@@ -31,13 +30,7 @@ import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
     ButtonSelectComponent,
     ListCardComponent,
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgxMasonryModule,
-    EditorModule,
-  ],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, EditorModule],
   exports: [
     CardComponent,
     OptionsComponent,
