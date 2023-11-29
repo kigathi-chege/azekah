@@ -5,7 +5,13 @@ import {
   OnChanges,
   Output,
 } from '@angular/core';
-import { CardFooterAction, CardFormat, CardListFormat, PaginationData } from '../../core/types';
+import {
+  CardFooterAction,
+  CardFormat,
+  CardListFormat,
+  ID,
+  PaginationData,
+} from '../../core/types';
 import { PaginationService } from '../../providers/pagination.service';
 import { getCardInput } from '../../helpers/data.helper';
 
@@ -53,7 +59,7 @@ export class ListCardComponent implements OnChanges {
   //   this.getTransactions(true, undefined, this.period.value, this.page_limit);
   // }
 
-  public onCardClick(item_id: number) {
+  public onCardClick(item_id: ID) {
     this.cardClickEmitter.emit(item_id);
   }
 

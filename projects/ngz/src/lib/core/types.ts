@@ -85,6 +85,7 @@ export interface CardChatColumnFormat {
 }
 
 export interface CardListFormat {
+  indexColumn?: string;
   columns: ColumnFormat;
   keys: string[];
   meta?: PaginationMeta;
