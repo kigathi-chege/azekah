@@ -15,12 +15,6 @@
         [ngClass]="[option.selected ? 'btn-primary' : 'btn-outline-secondary']"
         (click)="toggleSelectOption(option)"
       >
-        <!-- <span
-          class="lato-regular-11"
-          [ngClass]="[option.selected ? 'text-white' : 'text-indigo']"
-        >
-          {{ getTypeOf(option.label) === "string" && option.label }}
-        </span> -->
         <ng-container
           *ngTemplateOutlet="optionLabelTemplate; context: { option }"
         ></ng-container>
