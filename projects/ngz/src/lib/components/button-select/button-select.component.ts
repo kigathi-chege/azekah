@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ButtonSelectFormat, ButtonSelectOption } from '../../core/types';
+import { getTypeOf } from '../../helpers/lib.helper';
 
 @Component({
   selector: 'ngz-button-select',
@@ -8,10 +9,9 @@ import { ButtonSelectFormat, ButtonSelectOption } from '../../core/types';
 })
 export class ButtonSelectComponent {
   @Input() select!: ButtonSelectFormat;
-
   @Output() onSubmitEvent = new EventEmitter<ButtonSelectOption[]>(true);
-
   selectedOptions: ButtonSelectOption[] = [];
+  getTypeOf = getTypeOf;
 
   toggleSelectOption(option: ButtonSelectOption) {
     if (option.selected) {

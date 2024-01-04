@@ -136,9 +136,11 @@ export interface CardDescriptor {
 }
 
 export interface CardDescription extends CardDescriptor {
-  prefix?: CardDescriptor;
+  prefix?: RecursiveCardDescription;
   alt?: string[] | string;
 }
+
+interface RecursiveCardDescription extends CardDescription {}
 
 export interface AppendDescriptor extends CardDescriptor {
   type: AppendType;
@@ -235,7 +237,10 @@ export interface PrefixFormat {
   pipe?: any;
   pipe_args?: string[];
   appends?: AppendDescription;
+  prefix?: RecursivePrefixFormat;
 }
+
+interface RecursivePrefixFormat extends PrefixFormat {}
 
 export interface AppendDescription extends PrefixFormat {
   type: AppendType;
@@ -400,7 +405,7 @@ export interface ErrorHelpFormat {
 }
 
 export interface ButtonSelectOption {
-  label: string;
+  label: CardDescription | string;
   value: string;
   selected?: boolean;
 }

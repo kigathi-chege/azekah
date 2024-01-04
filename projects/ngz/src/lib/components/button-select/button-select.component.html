@@ -19,7 +19,7 @@
           class="lato-regular-11"
           [ngClass]="[option.selected ? 'text-white' : 'text-indigo']"
         >
-          {{ option.label }}
+          {{ getTypeOf(option.label) === "string" && option.label }}
         </span>
       </button>
     </div>
@@ -35,3 +35,40 @@
     </div>
   </form>
 </div>
+
+<ng-template #optionLabelTemplate let-option="option">
+  <span
+    class="lato-regular-11"
+    [ngClass]="[option.selected ? 'text-white' : 'text-indigo']"
+  >
+    {{ getTypeOf(option.label) === "string" && option.label }}
+    <span *ngIf="getTypeOf(option.label) === 'object'">
+      <span *ngIf="option.label.prefix">
+        <ng-container
+          *ngTemplateOutlet="
+            optionPrefixTemplate;
+            context: { prefix: option.label.prefix }
+          "
+        ></ng-container>
+      </span>
+      <span>
+        {{ option.label.value }}
+      </span>
+    </span>
+  </span>
+</ng-template>
+
+<ng-template #optionPrefixTemplate let-prefix="prefix">
+  <span *ngIf="prefix.prefix">
+    <ng-container
+      *ngTemplateOutlet="
+        optionPrefixTemplate;
+        context: { prefix: prefix.prefix }
+      "
+    ></ng-container>
+  </span>
+  <span
+    [ngClass]="[prefix.class_ ? prefix.class_ : 'lato-regular-11 text-indigo']"
+    >{{ prefix.value }}</span
+  >
+</ng-template>
