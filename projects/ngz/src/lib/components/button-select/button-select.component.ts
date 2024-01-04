@@ -4,10 +4,9 @@ import { ButtonSelectFormat, ButtonSelectOption } from '../../core/types';
 @Component({
   selector: 'ngz-button-select',
   templateUrl: './button-select.component.html',
-  styleUrls: ['./button-select.component.css']
+  styleUrls: ['./button-select.component.css'],
 })
 export class ButtonSelectComponent {
-
   @Input() select!: ButtonSelectFormat;
 
   @Output() onSubmitEvent = new EventEmitter<ButtonSelectOption[]>(true);
@@ -25,6 +24,9 @@ export class ButtonSelectComponent {
       }
       option.selected = true;
       this.selectedOptions.push(option);
+      if (this.select.quick_select) {
+        this.onSubmit();
+      }
     }
   }
 

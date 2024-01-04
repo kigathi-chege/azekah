@@ -405,12 +405,21 @@ export interface ButtonSelectOption {
   selected?: boolean;
 }
 
-export interface ButtonSelectFormat {
+export interface BasicButtonSelectFormat {
+  quick_select?: boolean;
   wrapper_class?: string;
   header?: string;
   subheader?: string;
   multiselect: boolean;
   options: ButtonSelectOption[];
+}
+
+export type ExclusiveSelection<T> = T extends true ? false : boolean;
+
+export interface ButtonSelectFormat
+  extends Omit<BasicButtonSelectFormat, 'quick_select' | 'multiselect'> {
+  quick_select?: ExclusiveSelection<BasicButtonSelectFormat['multiselect']>;
+  multiselect?: ExclusiveSelection<BasicButtonSelectFormat['quick_select']>;
 }
 
 export interface SelectInputOption {

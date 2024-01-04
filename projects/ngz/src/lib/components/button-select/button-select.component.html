@@ -1,38 +1,37 @@
 <div [ngClass]="[select.wrapper_class || '']">
-    <div class="mb-4">
-      <p class="mt-3 lato-bold-16 text-green" *ngIf="select.header">
-        {{ select.header }}
-      </p>
-      <p class="mt-3 lato-regular-11 text-indigo" *ngIf="select.subheader">
-        {{ select.subheader }}
-      </p>
-    </div>
-    <form>
-      <div class="form-group" *ngFor="let option of select.options">
-        <button
-          type="button"
-          class="btn btn-block"
-          [ngClass]="[option.selected ? 'btn-primary' : 'btn-outline-secondary']"
-          (click)="toggleSelectOption(option)"
-        >
-          <span
-            class="lato-regular-11"
-            [ngClass]="[option.selected ? 'text-white' : 'text-indigo']"
-          >
-            {{ option.label }}
-          </span>
-        </button>
-      </div>
-      <div class="mt-4 text-center">
-        <button
-          type="button"
-          class="btn btn-sm btn-success lato-regular-11"
-          (click)="onSubmit()"
-          [disabled]="!selectedOptions.length"
-        >
-          DONE
-        </button>
-      </div>
-    </form>
+  <div class="mb-4">
+    <p class="mt-3 lato-bold-16 text-green" *ngIf="select.header">
+      {{ select.header }}
+    </p>
+    <p class="mt-3 lato-regular-11 text-indigo" *ngIf="select.subheader">
+      {{ select.subheader }}
+    </p>
   </div>
-  
+  <form>
+    <div class="form-group" *ngFor="let option of select.options">
+      <button
+        type="button"
+        class="btn btn-block"
+        [ngClass]="[option.selected ? 'btn-primary' : 'btn-outline-secondary']"
+        (click)="toggleSelectOption(option)"
+      >
+        <span
+          class="lato-regular-11"
+          [ngClass]="[option.selected ? 'text-white' : 'text-indigo']"
+        >
+          {{ option.label }}
+        </span>
+      </button>
+    </div>
+    <div class="mt-4 text-center" *ngIf="!select.quick_select">
+      <button
+        type="button"
+        class="btn btn-sm btn-success lato-regular-11"
+        (click)="onSubmit()"
+        [disabled]="!selectedOptions.length"
+      >
+        DONE
+      </button>
+    </div>
+  </form>
+</div>
