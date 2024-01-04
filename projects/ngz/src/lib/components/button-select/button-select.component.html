@@ -15,12 +15,18 @@
         [ngClass]="[option.selected ? 'btn-primary' : 'btn-outline-secondary']"
         (click)="toggleSelectOption(option)"
       >
-        <span
+        <!-- <span
           class="lato-regular-11"
           [ngClass]="[option.selected ? 'text-white' : 'text-indigo']"
         >
           {{ getTypeOf(option.label) === "string" && option.label }}
-        </span>
+        </span> -->
+        <ng-container
+          *ngTemplateOutlet="
+            optionLabelTemplate;
+            context: { option: option.label }
+          "
+        ></ng-container>
       </button>
     </div>
     <div class="mt-4 text-center" *ngIf="!select.quick_select">
@@ -41,7 +47,9 @@
     class="lato-regular-11"
     [ngClass]="[option.selected ? 'text-white' : 'text-indigo']"
   >
-    {{ getTypeOf(option.label) === "string" && option.label }}
+    <span *ngIf="getTypeOf(option.label) === 'string'">
+      {{ option.label }}
+    </span>
     <span *ngIf="getTypeOf(option.label) === 'object'">
       <span *ngIf="option.label.prefix">
         <ng-container
