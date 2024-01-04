@@ -1,9 +1,23 @@
 <div [ngClass]="[select.wrapper_class || '']">
   <div class="mb-4">
-    <p class="mt-3 lato-bold-16 text-green" *ngIf="select.header">
+    <p
+      [ngClass]="[
+        select.header_class
+          ? select.header_class
+          : 'mt-3 lato-bold-16 text-green'
+      ]"
+      *ngIf="select.header"
+    >
       {{ select.header }}
     </p>
-    <p class="mt-3 lato-regular-11 text-indigo" *ngIf="select.subheader">
+    <p
+      [ngClass]="[
+        select.subheader_class
+          ? select.subheader_class
+          : 'mt-3 lato-regular-11 text-indigo'
+      ]"
+      *ngIf="select.subheader"
+    >
       {{ select.subheader }}
     </p>
   </div>

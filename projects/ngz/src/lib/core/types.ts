@@ -414,7 +414,9 @@ export interface BasicButtonSelectFormat {
   quick_select?: boolean;
   wrapper_class?: string;
   header?: string;
+  header_class?: string;
   subheader?: string;
+  subheader_class?: string;
   multiselect: boolean;
   options: ButtonSelectOption[];
 }
