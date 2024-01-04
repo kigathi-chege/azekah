@@ -50,7 +50,13 @@
           "
         ></ng-container>
       </span>
-      <span>
+      <span
+        [ngClass]="[
+          option.label.class_
+            ? option.label.class_
+            : 'lato-regular-11 text-indigo'
+        ]"
+      >
         {{ option.label.value }}
       </span>
     </span>
