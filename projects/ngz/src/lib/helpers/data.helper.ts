@@ -367,13 +367,13 @@ export const processBadgeValue = (badge: ComplexDescription, item: any) => {
             ? involved_class.condValue
             : involved_class.rawValue;
         }
+        if (!calculatedValue) {
+          value = involved_class.rawValue;
+        }
         if (involved_class.alt && calculatedValue) {
           value = involved_class.altValue
             ? involved_class.altValue
             : calculatedValue;
-        }
-        if (involved_class.alt && !calculatedValue) {
-          value = badge.rawValue;
         }
         class_ = value;
       }
