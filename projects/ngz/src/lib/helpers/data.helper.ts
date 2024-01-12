@@ -361,21 +361,21 @@ export const processBadgeValue = (badge: ComplexDescription, item: any) => {
               : item[identifier];
           });
         }
-        value = calculatedValue;
+        let classValue: string | undefined = calculatedValue;
         if (involved_class.conditional && calculatedValue) {
-          value = involved_class.condValue
+          classValue = involved_class.condValue
             ? involved_class.condValue
             : involved_class.rawValue;
         }
         if (!calculatedValue) {
-          value = involved_class.rawValue;
+          classValue = involved_class.rawValue;
         }
         if (involved_class.alt && calculatedValue) {
-          value = involved_class.altValue
+          classValue = involved_class.altValue
             ? involved_class.altValue
             : calculatedValue;
         }
-        class_ = value;
+        class_ = classValue || '';
       }
     }
   }
