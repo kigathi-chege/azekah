@@ -346,7 +346,7 @@ export const processBadgeValue = (badge: ComplexDescription, item: any) => {
     }
   }
   if (badge.class_) {
-    if (typeof class_ === 'string') {
+    if (typeof badge.class_ === 'string') {
       class_ = badge.class_;
     } else {
       let calculatedValue = '';
