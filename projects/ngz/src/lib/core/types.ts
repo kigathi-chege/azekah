@@ -170,13 +170,19 @@ export interface KeyValueDescription {
   key: string;
 }
 
-export interface ComplexDescription {
+export interface InvolvedComplexDescription {
   raw?: boolean;
   rawValue?: string;
+  // TODO: Kigathi - January 13 2024 - Introduced altValue and condValue, will need to be implemented in data.helper.ts
+  altValue?: string;
+  condValue?: string;
   conditional?: boolean;
   alt?: boolean;
   column?: string | string[];
-  class_?: string;
+}
+
+export interface ComplexDescription extends InvolvedComplexDescription {
+  class_?: string | InvolvedComplexDescription;
 }
 
 export interface SimpleImageDescription extends SimpleDescription {

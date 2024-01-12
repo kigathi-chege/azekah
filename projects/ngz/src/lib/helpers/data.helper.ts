@@ -8,6 +8,7 @@ import {
   ColumnHeaderDescription,
   ColumnWithBadgeDescriptor,
   ComplexDescription,
+  InvolvedComplexDescription,
   PrefixFormat,
   SimpleDescription,
 } from '../core/types';
@@ -308,7 +309,8 @@ export const processImageValue = (
     class_ = image.class_;
   }
 
-  return { value, class_ };
+  // TODO: Kigathi - January 13 2024 - This line is necessary because of InvolvedComplexDescription
+  return { value, class_: class_ as string | undefined };
 };
 
 export const processBadgeValue = (badge: ComplexDescription, item: any) => {
@@ -344,7 +346,38 @@ export const processBadgeValue = (badge: ComplexDescription, item: any) => {
     }
   }
   if (badge.class_) {
-    class_ = badge.class_;
+    if (typeof class_ === 'string') {
+      class_ = badge.class_;
+    } else {
+      let calculatedValue = '';
+      let involved_class = badge.class_ as InvolvedComplexDescription;
+      if (involved_class.column) {
+        if (typeof involved_class.column === 'string') {
+          calculatedValue = item[involved_class.column];
+        } else {
+          involved_class.column.map((identifier) => {
+            calculatedValue = calculatedValue
+              ? `${calculatedValue} ${item[identifier]}`
+              : item[identifier];
+          });
+        }
+        value = calculatedValue;
+        if (involved_class.conditional && calculatedValue) {
+          value = involved_class.condValue
+            ? involved_class.condValue
+            : involved_class.rawValue;
+        }
+        if (involved_class.alt && calculatedValue) {
+          value = involved_class.altValue
+            ? involved_class.altValue
+            : calculatedValue;
+        }
+        if (involved_class.alt && !calculatedValue) {
+          value = badge.rawValue;
+        }
+        class_ = value;
+      }
+    }
   }
 
   return { value, class_ };
