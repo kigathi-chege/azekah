@@ -1,11 +1,14 @@
 # 03 — Roadmap
 
-Phases have exit criteria rather than dates. Azekah runs in parallel with the
-commerce engine but never blocks it (engine phases 0–4 do not wait on Azekah).
+Phases have exit criteria rather than dates.
+
+**Start gate (AZ-D015):** Azekah work begins only after the commerce engine is
+stable — engine phases 0–4 complete and the engine in production use with its
+pilot tenants.
 
 ## AZ-0 — Foundations
 
-- Repo strategy decided (AZ-Q001); Angular 0.1.15 preserved as legacy.
+- Tag the Angular 0.1.15 code `legacy/angular`, then rebuild in this repo (AZ-D012).
 - Monorepo layout:
   - `apps/editor` (SvelteKit), `apps/api` (Fastify), `apps/render` (SvelteKit SSR host)
   - `packages/runtime`, `packages/schema` (document + manifest types, validators),
@@ -17,7 +20,8 @@ Exit: `./dev up azekah` boots editor, API and renderer; CI is green.
 
 ## AZ-1 — Runtime, tokens, rendering
 
-- Svelte 5 → custom elements build; tag versioning; shadow/light DOM setting.
+- Svelte 5 → custom elements build (AZ-D013); tag versioning; shadow/light DOM setting.
+- Move the engine's commerce elements onto `@azekah/runtime` (AZ-D016).
 - Manifests for the core pack: page, section, stack/grid, text, rich text,
   image, button, link, card, list, form, field types, dialog, nav, breadcrumb.
 - Themes: token tables → CSS custom properties; style groups; breakpoints.

@@ -5,6 +5,7 @@ builder** built on **web components**, so what it builds runs anywhere: our
 SvelteKit apps, Laravel/Blade apps, Angular, React, or a plain HTML page.
 
 Status: **planning** — nothing has been built against this plan yet.
+**Starts only after the commerce engine is stable** (AZ-D015).
 Started 2026-10-21.
 
 ## Vision

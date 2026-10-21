@@ -15,3 +15,8 @@ Append-only. To change a decision, add a new entry that supersedes the old one.
 | AZ-D009 | 2026-10-21 | Settings over choices (mirrors commerce D-009): delivery mode, DOM isolation, branding source, and content system per site are settings. | User direction. |
 | AZ-D010 | 2026-10-21 | Users are shared through `lyre-auth` (commerce D-012). | Shared user records across systems. |
 | AZ-D011 | 2026-10-21 | lyre-content keeps working; Azekah offers an importer and an adapter rather than replacing it. | Aspire depends on it today. |
+| AZ-D012 | 2026-10-21 | Rebuild inside this repo. The Angular 0.1.15 code is preserved with a `legacy/angular` tag before new code lands. Resolves AZ-Q001. | User decision. |
+| AZ-D013 | 2026-10-21 | Components are authored in Svelte 5 and compiled to custom elements. Resolves AZ-Q002. | User decision; matches our stack. |
+| AZ-D014 | 2026-10-21 | "Kunguru" is dropped from scope. Resolves AZ-Q008. | User decision. |
+| AZ-D015 | 2026-10-21 | **Sequencing:** Azekah work starts only after the commerce engine is stable, meaning engine phases 0–4 are complete and the engine is in production use with its pilot tenants. Supersedes "runs in parallel" in 03-roadmap. | Engine first. |
+| AZ-D016 | 2026-10-21 | Because Azekah comes later, the engine's commerce elements are first built as plain custom elements in the engine repo, and move onto `@azekah/runtime` once it exists. Supersedes the timing in AZ-D008; the dependency direction is unchanged. | The engine must not wait on Azekah. |
