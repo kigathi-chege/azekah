@@ -2,9 +2,9 @@
 
 Phases have exit criteria rather than dates.
 
-**Start gate (AZ-D015):** Azekah work begins only after the commerce engine is
-stable — engine phases 0–4 complete and the engine in production use with its
-pilot tenants.
+**Start gate (AZ-D015, narrowed by AZ-D017):** the editor, service and hosted
+rendering (AZ-0 service parts, AZ-3 onward) begin only after the commerce engine
+is stable. The portable foundation (WG phases below) starts now.
 
 ## AZ-0 — Foundations
 
@@ -70,3 +70,31 @@ the engine's checkout still works with its built-in theme.**
 - lyre-content importer and adapter.
 - AI-assisted building from manifests; real-time collaboration.
 - Analytics, A/B testing, accessibility checks.
+
+## WG — Shared widget foundation (AZ-D017; details in 04-widget-platform.md)
+
+Runs before and independently of the gated phases. Each phase ends with a
+report that keeps *designed / implemented / unit / integration / browser / real
+provider / deployed / production* separate. One consolidated PR per repo (AZ-D026).
+
+- **WG-0 Contracts.** Tag `legacy/angular`; resolve the open items in 06; freeze
+  manifest v1, context, action and event schemas (`@azekah/schema`).
+- **WG-1 Runtime + harness.** `@azekah/runtime`, core primitives, tokens, a
+  composition harness that renders one JSON document in SvelteKit and plain HTML.
+- **WG-2 Shop widgets** in simple-shop: product card, grid/carousel, quick view,
+  artist/event merch configurations; real Shop API; checkout hand-off; shown on a
+  Toafom artist page and an Events page.
+- **WG-3 Events widgets** in events: card, list, artist performances, hero, ticket
+  tiers with revalidation before reservation; shown on Toafom, Heartstrings and Shop.
+- **WG-4 Ads wrapper** in ads: manifest + placement element around the existing SDK;
+  sponsored labelling; failures never break the host page.
+- **WG-5 Accounts shell.** `nipate-apps` manifest/wrapper; composable shell
+  pieces; one example host. Other apps migrate their switchers in their own PRs.
+- **WG-6 Composition renderer.** Document → elements with a manifest registry and
+  visible errors for unknown types; Aspire section wrapper as the first
+  lyre-content consumer (05 §2.2).
+- **WG-7 More providers.** Toafom, Heartstrings, Inbox, Loyalty, Intelligence,
+  limited to what each real API supports.
+
+Exit (foundation): scenarios A–F from the brief demonstrated against real local
+provider APIs in devstack, with Azekah's service **not running**.
