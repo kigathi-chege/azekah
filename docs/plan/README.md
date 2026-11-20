@@ -5,7 +5,7 @@ builder** built on **web components**, so what it builds runs anywhere: our
 SvelteKit apps, Laravel/Blade apps, Angular, React, or a plain HTML page.
 
 Status: **planning** — nothing has been built against this plan yet.
-**Starts only after the commerce engine is stable** (AZ-D015).
+**Foundation (runtime, schema, provider widgets) may start now** (AZ-D017 supersedes AZ-D015 for it); the editor, service and hosting stay gated by AZ-D015.
 Started 2026-10-21.
 
 ## Vision
@@ -28,6 +28,9 @@ first) — **without the engine ever depending on it** (see the boundary in
 | [01-audit.md](01-audit.md) | What Azekah is today, its consumers, and every prior "UI as data" draft |
 | [02-architecture.md](02-architecture.md) | Runtime, document model, data binding, actions, theming, delivery modes, boundary with the commerce engine |
 | [03-roadmap.md](03-roadmap.md) | Phases with exit criteria |
+| [04-widget-platform.md](04-widget-platform.md) | Shareable components and business widgets (Widgetify): provider spec, manifests, context, actions, delivery, security |
+| [05-content-and-data-compat.md](05-content-and-data-compat.md) | lyre-content / Aspire / contentkit mapping, data passing, path to the website builder |
+| [06-cross-app-links.md](06-cross-app-links.md) | Source of truth for artist↔Events, artist↔Shop, event↔Shop relations |
 | [decisions.md](decisions.md) | Decision log (append-only) |
 | [open-questions.md](open-questions.md) | Still to decide or investigate |
 

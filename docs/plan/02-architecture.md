@@ -166,7 +166,7 @@ The engine must work fully without Azekah. Rules:
   engine repo as the commerce pack. They depend only on the `@azekah/runtime`
   **library**, never on the Azekah service, and publish manifests so the
   Azekah editor can place them.
-- Azekah starts only after the engine is stable (AZ-D015). Until then the
+- The editor and service start only after the engine is stable (AZ-D015, narrowed by AZ-D017); the portable runtime and provider widgets are not gated (see 04-widget-platform.md). Until then the
   commerce elements are plain custom elements in the engine repo (AZ-D016).
 
 ## 11. Existing content systems
